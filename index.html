@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nostipedia — Wikipedia on Nostr</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Nostipedia</h1>
+      <form id="search-form" aria-label="Search for articles">
+        <input
+          id="search-input"
+          name="query"
+          type="search"
+          placeholder="Search Wikipedia articles"
+          autocomplete="off"
+          required
+          aria-label="Search for an article"
+        />
+        <button type="submit">Search</button>
+      </form>
+    </header>
+
+    <main class="layout">
+      <section class="panel search-panel" aria-labelledby="search-results-heading">
+        <div class="panel-header">
+          <h2 id="search-results-heading">Search results</h2>
+          <p class="status-line" id="search-status">Enter a search term to begin.</p>
+        </div>
+        <div class="panel-body" id="search-results" role="region" aria-live="polite"></div>
+      </section>
+
+      <section class="panel article-panel" aria-labelledby="article-heading">
+        <div class="panel-header">
+          <h2 id="article-heading">Article</h2>
+          <p class="status-line" id="article-status">Select a result to read the article.</p>
+        </div>
+        <div class="panel-body">
+          <article>
+            <header>
+              <h1 id="article-title"></h1>
+              <p class="article-meta" id="article-meta"></p>
+              <p class="article-summary" id="article-summary"></p>
+            </header>
+            <div class="article-content" id="article-content" aria-live="polite"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel compare-panel" aria-labelledby="compare-heading">
+        <div class="panel-header">
+          <h2 id="compare-heading">Compare revisions</h2>
+          <p class="status-line" id="compare-status">Choose two revisions to review side by side.</p>
+        </div>
+        <div class="panel-body">
+          <div class="revision-controls">
+            <div class="select-group">
+              <label for="compare-select-a">Revision A</label>
+              <select id="compare-select-a" disabled>
+                <option value="">Select a revision</option>
+              </select>
+            </div>
+            <div class="select-group">
+              <label for="compare-select-b">Revision B</label>
+              <select id="compare-select-b" disabled>
+                <option value="">Select a revision</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="revision-compare" id="revision-compare" aria-live="polite">
+            <div class="empty-state">Select two revisions to view their contents.</div>
+          </div>
+
+          <div class="revision-list" aria-live="polite">
+            <h3>Recent revisions</h3>
+            <div id="revision-table-wrapper">
+              <div class="empty-state">No revisions loaded yet.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Content sourced from Wikipedia. Nostipedia is an independent Nostr-friendly reader.
+    </footer>
+
+    <script src="scripts/app.js" defer></script>
+  </body>
+</html>
