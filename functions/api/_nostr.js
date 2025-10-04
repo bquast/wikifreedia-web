@@ -7,6 +7,7 @@ const DEFAULT_RELAYS = [
 
 const DEFAULT_TIMEOUT_MS = 6000;
 const MAX_EVENTS_PER_RELAY = 120;
+const ARTICLE_KIND = 30818;
 
 function createSubId(prefix = 'nostipedia') {
   return `${prefix}-${Math.random().toString(16).slice(2)}`;
@@ -198,7 +199,7 @@ function sortByUpdatedDescending(entries) {
 
 export async function searchArticles(query, options = {}) {
   const searchFilter = {
-    kinds: [30023],
+    kinds: [ARTICLE_KIND],
     search: query,
     limit: options.limit ?? 24
   };
@@ -221,8 +222,8 @@ export async function searchArticles(query, options = {}) {
 export async function fetchArticle({ slug, eventId, relays, limit = 1 }) {
   const prioritizedRelays = relays && relays.length ? relays : undefined;
   const filter = eventId
-    ? { kinds: [30023], ids: [eventId], limit }
-    : { kinds: [30023], '#d': [slug], limit };
+    ? { kinds: [ARTICLE_KIND], ids: [eventId], limit }
+    : { kinds: [ARTICLE_KIND], '#d': [slug], limit };
 
   const events = await fetchEvents(filter, {
     relays: prioritizedRelays,
@@ -244,7 +245,7 @@ export async function fetchArticle({ slug, eventId, relays, limit = 1 }) {
 }
 
 export async function fetchArticleRevisions({ slug, relays, limit = 50 }) {
-  const filter = { kinds: [30023], '#d': [slug], limit };
+  const filter = { kinds: [ARTICLE_KIND], '#d': [slug], limit };
   const events = await fetchEvents(filter, {
     relays,
     timeoutMs: DEFAULT_TIMEOUT_MS,
